@@ -17,14 +17,14 @@
 import './style.css';
 const data = require('./data.json');
 let map: google.maps.Map;
-var commerces: [google.maps.LatLngLiteral, string, string][] = [];
-console.log(commerces);
+var commerces: [google.maps.LatLngLiteral, string, string, number][] = [];
 
 data.forEach((commerce) => {
-  var folio: [google.maps.LatLngLiteral, string, string] = [
+  var folio: [google.maps.LatLngLiteral, string, string, number] = [
     { lat: parseFloat(commerce.Latitude), lng: parseFloat(commerce.Longitude) },
     commerce.Name,
     commerce.Folio,
+    parseInt(commerce.District),
   ];
   commerces.push(folio);
 });
@@ -51,6 +51,30 @@ const stops: [google.maps.LatLngLiteral, string, string][] = [
     'folio',
   ],
 ];
+function addMarker(
+  color: string,
+  position: google.maps.LatLngLiteral,
+  folio: string,
+  name: string,
+  car: any,
+  infoWindow: any
+): void {
+  car.fillColor = color;
+  const marker = new google.maps.Marker({
+    position,
+    map,
+    title: `${folio}. ${name}`,
+    icon: car,
+    optimized: false,
+  });
+
+  // Add a click listener for each marker, and set up the info window.
+  marker.addListener('click', () => {
+    infoWindow.close();
+    infoWindow.setContent(marker.getTitle());
+    infoWindow.open(marker.getMap(), marker);
+  });
+}
 function initMap(): void {
   const cpa = { lat: 45.538155, lng: -73.61137 };
   const red_car = { lat: 45.624286103575, lng: -73.55816162776232 };
@@ -60,6 +84,19 @@ function initMap(): void {
     west: -74.1,
     east: -73.34,
   };
+
+  const car = {
+    path: 'M21.434 7.689l-2.434 3.311h-5.684c.701 2 2.996 3.886 6.201 3.26.95-.064 4.155-.573 5.483-.26 1.768.424 1.031.426 4.201 2.97l15.799 13.03c.968.855 2.206.505 3.063-.461.857-.968.905-2.684-.063-3.539l-20-16c-1.252-1.005-1.568-2.397-2-4-.84-2.755-3.929-4.965-6.961-4.965-2.443 0-5.072 2.113-6.039 3.965h6l2.434 2.689zm13.72 24.311l-6.182-10.73c-.244-.445-.861-1.27-1.368-1.27h-17.208c-.507 0-1.124.825-1.369 1.27l-6.027 10.73h-.154c-1.015 0-1.846.369-1.846 1.385v9.23c0 1.016.831 1.385 1.846 1.385h2.154v3.23c0 1.524.938 2.77 2.461 2.77h.923c1.524 0 2.616-1.246 2.616-2.77v-3.23h16v3.23c0 1.523 1.092 2.77 2.615 2.77h.923c1.524 0 2.462-1.246 2.462-2.77v-3.23h2.154c1.015 0 1.846-.369 1.846-1.385v-9.23c0-1.016-.831-1.385-1.846-1.385zm-29.077 6.923c-1.275 0-2.308-1.033-2.308-2.308s1.033-2.308 2.308-2.308c1.274 0 2.308 1.033 2.308 2.308s-1.033 2.308-2.308 2.308zm1.846-6.923l3.741-7.828c.227-.454.829-1.172 1.336-1.172h12c.507 0 1.108.718 1.336 1.172l3.741 7.828h-22.154zm24 6.923c-1.274 0-2.308-1.033-2.308-2.308s1.033-2.308 2.308-2.308 2.308 1.033 2.308 2.308-1.034 2.308-2.308 2.308z',
+    fillColor: 'red',
+    fillOpacity: 0.6,
+    strokeWeight: 0,
+    rotation: 0,
+    scale: 0.3,
+    anchor: new google.maps.Point(0, 0),
+  };
+
+  // Create an info window to share between markers.
+  const infoWindow = new google.maps.InfoWindow();
 
   var myStyles = [
     {
@@ -87,9 +124,6 @@ function initMap(): void {
     myOptions
   );
 
-  // Create an info window to share between markers.
-  const infoWindow = new google.maps.InfoWindow();
-
   const svgMarker = {
     path: 'M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z',
     fillColor: 'green',
@@ -100,49 +134,39 @@ function initMap(): void {
     anchor: new google.maps.Point(15, 30),
   };
 
-  const car = {
-    path: 'M21.434 7.689l-2.434 3.311h-5.684c.701 2 2.996 3.886 6.201 3.26.95-.064 4.155-.573 5.483-.26 1.768.424 1.031.426 4.201 2.97l15.799 13.03c.968.855 2.206.505 3.063-.461.857-.968.905-2.684-.063-3.539l-20-16c-1.252-1.005-1.568-2.397-2-4-.84-2.755-3.929-4.965-6.961-4.965-2.443 0-5.072 2.113-6.039 3.965h6l2.434 2.689zm13.72 24.311l-6.182-10.73c-.244-.445-.861-1.27-1.368-1.27h-17.208c-.507 0-1.124.825-1.369 1.27l-6.027 10.73h-.154c-1.015 0-1.846.369-1.846 1.385v9.23c0 1.016.831 1.385 1.846 1.385h2.154v3.23c0 1.524.938 2.77 2.461 2.77h.923c1.524 0 2.616-1.246 2.616-2.77v-3.23h16v3.23c0 1.523 1.092 2.77 2.615 2.77h.923c1.524 0 2.462-1.246 2.462-2.77v-3.23h2.154c1.015 0 1.846-.369 1.846-1.385v-9.23c0-1.016-.831-1.385-1.846-1.385zm-29.077 6.923c-1.275 0-2.308-1.033-2.308-2.308s1.033-2.308 2.308-2.308c1.274 0 2.308 1.033 2.308 2.308s-1.033 2.308-2.308 2.308zm1.846-6.923l3.741-7.828c.227-.454.829-1.172 1.336-1.172h12c.507 0 1.108.718 1.336 1.172l3.741 7.828h-22.154zm24 6.923c-1.274 0-2.308-1.033-2.308-2.308s1.033-2.308 2.308-2.308 2.308 1.033 2.308 2.308-1.034 2.308-2.308 2.308z',
-    fillColor: 'red',
-    fillOpacity: 0.6,
-    strokeWeight: 0,
-    rotation: 0,
-    scale: 0.3,
-    anchor: new google.maps.Point(0, 0),
-  };
-
   new google.maps.Marker({
     position: cpa,
     map,
     icon: svgMarker,
     title: 'CPA MONTREAL',
   });
-  console.log(stops);
-  console.log(commerces);
+  //console.log(stops);
+  //console.log(commerces);
   // Create the markers.
-  commerces.forEach(([position, name, folio], i) => {
-    const marker = new google.maps.Marker({
-      position,
-      map,
-      title: `${folio}. ${name}`,
-      icon: car,
-      optimized: false,
-    });
-
-    // Add a click listener for each marker, and set up the info window.
-    marker.addListener('click', () => {
-      infoWindow.close();
-      infoWindow.setContent(marker.getTitle());
-      infoWindow.open(marker.getMap(), marker);
-    });
+  commerces.forEach(([position, name, folio, district], i) => {
+    switch (district) {
+      case 70: {
+        addMarker('limegreen', position, folio, name, car, infoWindow);
+        break;
+      }
+      case 71: {
+        addMarker('red', position, folio, name, car, infoWindow);
+        break;
+      }
+      case 80: {
+        addMarker('sienna', position, folio, name, car, infoWindow);
+        break;
+      }
+      case 92: {
+        addMarker('blue', position, folio, name, car, infoWindow);
+        break;
+      }
+      case 93: {
+        addMarker('black', position, folio, name, car, infoWindow);
+        break;
+      }
+    }
   });
-
-  /*car.fillColor = 'red';
-  new google.maps.Marker({
-    position: red_car,
-    map,
-    icon: car,
-    title: 'Garage à investiger',
-  });*/
 
   var polygonMask = new google.maps.Polygon({
     map: map,

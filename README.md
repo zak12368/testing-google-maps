@@ -1,3 +1,8 @@
-# github-epnpvj-ihybxp
+# github-epnpvj
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/github-epnpvj-ihybxp)
+LES COULEURS POUR LES FOLIOS:
+70: limegreen
+71: red
+80: sienna (brown)
+92: blue
+93: black
