@@ -17,14 +17,30 @@
 import './style.css';
 const data = require('./data.json');
 let map: google.maps.Map;
-var commerces: [google.maps.LatLngLiteral, string, string, number][] = [];
+var commerces: [
+  google.maps.LatLngLiteral,
+  string,
+  string,
+  number,
+  string,
+  string
+][] = [];
 
 data.forEach((commerce) => {
-  var folio: [google.maps.LatLngLiteral, string, string, number] = [
+  var folio: [
+    google.maps.LatLngLiteral,
+    string,
+    string,
+    number,
+    string,
+    string
+  ] = [
     { lat: parseFloat(commerce.Latitude), lng: parseFloat(commerce.Longitude) },
     commerce.Name,
     commerce.Folio,
     parseInt(commerce.District),
+    commerce.SubDistrict,
+    commerce.Activity,
   ];
   commerces.push(folio);
 });
