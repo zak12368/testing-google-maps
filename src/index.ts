@@ -67,11 +67,56 @@ const stops: [google.maps.LatLngLiteral, string, string][] = [
     'folio',
   ],
 ];
+
+function addColorToSD(subDistrict: string): string {
+  let color: string = 'default';
+
+  switch (subDistrict) {
+    case 'A': {
+      color = 'limegreen';
+      break;
+    }
+    case 'B': {
+      color = 'red';
+      break;
+    }
+    case 'C': {
+      color = 'sienna';
+      break;
+    }
+    case 'D': {
+      color = 'blue';
+      break;
+    }
+    case 'E': {
+      color = 'purple';
+      break;
+    }
+    case 'F': {
+      color = 'teal';
+      break;
+    }
+    case 'G': {
+      color = 'salmon';
+      break;
+    }
+    case 'null': {
+      color = 'black';
+      break;
+    }
+  }
+
+  return color;
+}
+
 function addMarker(
   color: string,
   position: google.maps.LatLngLiteral,
   folio: string,
   name: string,
+  district: number,
+  subDistrict: string,
+  activity: string,
   car: any,
   infoWindow: any
 ): void {
@@ -79,7 +124,7 @@ function addMarker(
   const marker = new google.maps.Marker({
     position,
     map,
-    title: `${folio}. ${name}`,
+    title: `${folio}. ${name}. ${district}. ${subDistrict}.`,
     icon: car,
     optimized: false,
   });
@@ -159,30 +204,103 @@ function initMap(): void {
   //console.log(stops);
   //console.log(commerces);
   // Create the markers.
-  commerces.forEach(([position, name, folio, district], i) => {
-    switch (district) {
-      case 70: {
-        addMarker('limegreen', position, folio, name, car, infoWindow);
-        break;
-      }
-      case 71: {
-        addMarker('red', position, folio, name, car, infoWindow);
-        break;
-      }
-      case 80: {
-        addMarker('sienna', position, folio, name, car, infoWindow);
-        break;
-      }
-      case 92: {
-        addMarker('blue', position, folio, name, car, infoWindow);
-        break;
-      }
-      case 93: {
-        addMarker('black', position, folio, name, car, infoWindow);
-        break;
+  let color: string = 'default';
+  commerces.forEach(
+    ([position, name, folio, district, subDistrict, activity], i) => {
+      if (activity == 'false') {
+        color = addColorToSD(subDistrict);
+        addMarker(
+          color,
+          position,
+          folio,
+          name,
+          district,
+          subDistrict,
+          activity,
+          car,
+          infoWindow
+        );
+      } else {
+        switch (district) {
+          case 50: {
+            color = addColorToSD(subDistrict);
+            addMarker(
+              color,
+              position,
+              folio,
+              name,
+              district,
+              subDistrict,
+              activity,
+              car,
+              infoWindow
+            );
+            break;
+          }
+          case 72: {
+            color = addColorToSD(subDistrict);
+            addMarker(
+              color,
+              position,
+              folio,
+              name,
+              district,
+              subDistrict,
+              activity,
+              car,
+              infoWindow
+            );
+            break;
+          }
+          case 80: {
+            color = addColorToSD(subDistrict);
+            addMarker(
+              color,
+              position,
+              folio,
+              name,
+              district,
+              subDistrict,
+              activity,
+              car,
+              infoWindow
+            );
+            break;
+          }
+          case 93: {
+            color = addColorToSD(subDistrict);
+            addMarker(
+              color,
+              position,
+              folio,
+              name,
+              district,
+              subDistrict,
+              activity,
+              car,
+              infoWindow
+            );
+            break;
+          }
+          case 73: {
+            color = addColorToSD(subDistrict);
+            addMarker(
+              color,
+              position,
+              folio,
+              name,
+              district,
+              subDistrict,
+              activity,
+              car,
+              infoWindow
+            );
+            break;
+          }
+        }
       }
     }
-  });
+  );
 
   var polygonMask = new google.maps.Polygon({
     map: map,
