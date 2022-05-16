@@ -222,7 +222,7 @@ function initMap(): void {
         );
       } else {
         switch (district) {
-          case 50: {
+          case 71: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -237,7 +237,7 @@ function initMap(): void {
             );
             break;
           }
-          case 72: {
+          case 35: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -252,7 +252,7 @@ function initMap(): void {
             );
             break;
           }
-          case 80: {
+          case 60: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -267,7 +267,7 @@ function initMap(): void {
             );
             break;
           }
-          case 93: {
+          case 92: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -282,7 +282,22 @@ function initMap(): void {
             );
             break;
           }
-          case 73: {
+          case 94: {
+            color = addColorToSD(subDistrict);
+            addMarker(
+              color,
+              position,
+              folio,
+              name,
+              district,
+              subDistrict,
+              activity,
+              car,
+              infoWindow
+            );
+            break;
+          }
+          case 10: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,

@@ -5,7 +5,7 @@ A: limegreen
 B: red
 C: sienna (brown)
 D: blue
-B: purple
-C: teal
-D: salmon
+E: purple
+F: teal
+G: salmon
 INACTIFS: black
