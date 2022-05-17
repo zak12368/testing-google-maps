@@ -222,7 +222,7 @@ function initMap(): void {
         );
       } else {
         switch (district) {
-          case 71: {
+          case 25: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -237,7 +237,7 @@ function initMap(): void {
             );
             break;
           }
-          case 35: {
+          case 30: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -252,7 +252,7 @@ function initMap(): void {
             );
             break;
           }
-          case 60: {
+          case 95: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -267,7 +267,7 @@ function initMap(): void {
             );
             break;
           }
-          case 92: {
+          case 93: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -282,7 +282,7 @@ function initMap(): void {
             );
             break;
           }
-          case 94: {
+          case 91: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -297,7 +297,37 @@ function initMap(): void {
             );
             break;
           }
-          case 10: {
+          case 40: {
+            color = addColorToSD(subDistrict);
+            addMarker(
+              color,
+              position,
+              folio,
+              name,
+              district,
+              subDistrict,
+              activity,
+              car,
+              infoWindow
+            );
+            break;
+          }
+          case 70: {
+            color = addColorToSD(subDistrict);
+            addMarker(
+              color,
+              position,
+              folio,
+              name,
+              district,
+              subDistrict,
+              activity,
+              car,
+              infoWindow
+            );
+            break;
+          }
+          case 83: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
