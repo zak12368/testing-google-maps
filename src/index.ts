@@ -237,67 +237,7 @@ function initMap(): void {
             );
             break;
           }
-          case 30: {
-            color = addColorToSD(subDistrict);
-            addMarker(
-              color,
-              position,
-              folio,
-              name,
-              district,
-              subDistrict,
-              activity,
-              car,
-              infoWindow
-            );
-            break;
-          }
-          case 95: {
-            color = addColorToSD(subDistrict);
-            addMarker(
-              color,
-              position,
-              folio,
-              name,
-              district,
-              subDistrict,
-              activity,
-              car,
-              infoWindow
-            );
-            break;
-          }
-          case 93: {
-            color = addColorToSD(subDistrict);
-            addMarker(
-              color,
-              position,
-              folio,
-              name,
-              district,
-              subDistrict,
-              activity,
-              car,
-              infoWindow
-            );
-            break;
-          }
-          case 91: {
-            color = addColorToSD(subDistrict);
-            addMarker(
-              color,
-              position,
-              folio,
-              name,
-              district,
-              subDistrict,
-              activity,
-              car,
-              infoWindow
-            );
-            break;
-          }
-          case 40: {
+          case 35: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
@@ -313,21 +253,6 @@ function initMap(): void {
             break;
           }
           case 70: {
-            color = addColorToSD(subDistrict);
-            addMarker(
-              color,
-              position,
-              folio,
-              name,
-              district,
-              subDistrict,
-              activity,
-              car,
-              infoWindow
-            );
-            break;
-          }
-          case 83: {
             color = addColorToSD(subDistrict);
             addMarker(
               color,
